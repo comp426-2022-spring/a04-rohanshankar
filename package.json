@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "better-sqlite3": "^7.5.1",
+    "express": "^4.17.3",
+    "fs": "^0.0.1-security",
+    "minimist": "^1.2.6",
+    "morgan": "^1.10.0"
+  },
+  "name": "a04-rohanshankar",
+  "version": "1.0.0",
+  "description": "Assignment a04",
+  "main": "database.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Rohan Shankar",
+  "license": "GPL-3.0-or-later"
+}
