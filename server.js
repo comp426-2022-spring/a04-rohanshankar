@@ -1,8 +1,8 @@
 // Require minimist module
-const args = require('minimist')(process.argv.slice(2))
-
+const args = require('minimist')(process.argv.slice(2));
+const port = args.port || process.env.port || 5000;
 // See what is stored in the object produced by minimist
-console.log(args)
+console.log(args);
 // Store help text 
 const help = (`
 server.js [options]
@@ -22,8 +22,8 @@ server.js [options]
 `)
 // If --help or -h, echo help text to STDOUT and exit
 if (args.help || args.h) {
-    console.log(help)
-    process.exit(0)
+    console.log(help);
+    process.exit(0);
 }
 
 const express = require('express');
@@ -32,30 +32,26 @@ const logdb = require("./database.js");
 const fs = require('fs');
 const morgan = require('morgan');
 
-app.use(express.json())
-app.use(express.urlencoded({extended: true}))
-
-const port = args.port || process.env.port || 5000
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 const server = app.listen(port, () => {
-    console.log('App listening on port %PORT%'.replace('%PORT%', port))
+    console.log('App listening on port %PORT%'.replace('%PORT%', port));
 });
 
 if (args.log) {
     const WRITESTREAM = fs.createWriteStream('access.log', { flags: 'a' });
     // Set up the access logging middleware
-    app.use(morgan('combined', { stream: WRITESTREAM }));
-} else {
-    console.log("will not create an access.log");
-}
+    app.use(morgan('combined'), { stream: WRITESTREAM });
+} 
 
 if (args.debug){
     app.get('/app/log/access/', (req, res, next) => {
-    const stmt = db.prepare('SELECT * FROM accesslog').all()
-    res.status(200).json(stmt)
+    const stmt = db.prepare('SELECT * FROM accesslog').all();
+    res.status(200).json(stmt);
     })
     app.get('/app/error/', (req, res, next) => {
-      throw new Error('Error')
+      throw new Error('Error');
     })
 }
 
