@@ -28,8 +28,7 @@ if (row === undefined) {
             httpversion TEXT, 
             status TEXT, 
             referer TEXT, 
-            useragent TEXT);
-    `;
+            useragent TEXT);`;
 // Execute SQL commands that we just wrote above.
     db.exec(sqlInit);
 // Echo information about what we just did to the console.

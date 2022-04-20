@@ -39,13 +39,13 @@ const server = app.listen(port, () => {
     console.log('App listening on port %PORT%'.replace('%PORT%', port));
 });
 
-if (args.log) {
+if (args.log == 'true') {
     const WRITESTREAM = fs.createWriteStream('access.log', { flags: 'a' });
     // Set up the access logging middleware
     app.use(morgan('combined'), { stream: WRITESTREAM });
 } 
 
-if (args.debug){
+if (args.debug || args.d){
     app.get('/app/log/access/', (req, res, next) => {
     const stmt = logdb.prepare('SELECT * FROM accesslog').all();
     res.status(200).json(stmt);
